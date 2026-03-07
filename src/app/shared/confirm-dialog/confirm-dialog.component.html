@@ -1,0 +1,11 @@
+<div style="background: var(--surface); padding: 28px; border-radius: 14px; min-width: 360px;">
+  <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; margin-bottom: 10px;">Delete Entry</h2>
+  <p style="color: var(--muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6;">
+    Are you sure you want to delete <strong style="color: var(--text);">{{ data.name }}</strong>?
+    This cannot be undone.
+  </p>
+  <div style="display: flex; gap: 12px; justify-content: flex-end;">
+    <button mat-raised-button class="btn-outline" (click)="cancel()">Cancel</button>
+    <button mat-raised-button class="btn-danger-soft" (click)="confirm()">Delete</button>
+  </div>
+</div>

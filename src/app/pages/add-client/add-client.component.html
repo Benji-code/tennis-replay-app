@@ -1,0 +1,45 @@
+<div class="main-content">
+  <div class="page-title">Add <span>Client</span></div>
+
+  <div *ngIf="message" class="msg" [ngClass]="messageType === 'error' ? 'msg-error' : 'msg-success'">
+    {{ message }}
+  </div>
+
+  <div class="tr-card" [formGroup]="form">
+    <div class="tr-card-title">Client Details</div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Name *</mat-label>
+        <input matInput formControlName="name" placeholder="e.g. Alex Smith">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Additional Notes</mat-label>
+        <input matInput formControlName="notes" placeholder="Any notes…">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row" style="margin-top: 8px;">
+      <div style="flex: 1; min-width: 200px;">
+        <p style="font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">Left Handed</p>
+        <mat-radio-group formControlName="leftHanded" style="display: flex; gap: 20px;">
+          <mat-radio-button [value]="true">Yes</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div style="flex: 1; min-width: 200px;">
+        <p style="font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">One-Handed Backhand</p>
+        <mat-radio-group formControlName="oneHandBackhand" style="display: flex; gap: 20px;">
+          <mat-radio-button [value]="true">Yes</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <button mat-raised-button class="btn-accent" (click)="submit()">Add Client</button>
+    </div>
+  </div>
+</div>

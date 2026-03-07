@@ -1,0 +1,98 @@
+<div class="main-content">
+  <div class="page-title" style="font-size: 24px; margin-bottom: 12px;">Video <span>Player</span></div>
+
+  <!-- No videos loaded -->
+  <div *ngIf="!slot1 && !slot2" class="tr-card">
+    <div class="empty-state">
+      <mat-icon>movie</mat-icon>
+      <p style="margin-bottom: 16px;">No videos loaded. Select up to two from the Video Library.</p>
+      <button mat-raised-button class="btn-accent" (click)="goToLibrary()">Go to Video Library</button>
+    </div>
+  </div>
+
+  <div *ngIf="slot1 || slot2">
+
+    <!-- Video grid -->
+    <div class="video-grid">
+      <div class="video-slot">
+        <video #vid1 [src]="slot1?.objectUrl" playsinline muted></video>
+        <div *ngIf="!slot1" class="video-slot-empty">
+          <mat-icon>videocam_off</mat-icon>
+          <span>No video in Slot 1</span>
+        </div>
+      </div>
+      <div class="video-slot">
+        <video #vid2 [src]="slot2?.objectUrl" playsinline muted></video>
+        <div *ngIf="!slot2" class="video-slot-empty">
+          <mat-icon>videocam_off</mat-icon>
+          <span>No video in Slot 2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="tr-card" style="margin-top: 16px;">
+      <div class="tr-card-title">Playback Controls</div>
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+        <button mat-raised-button class="btn-accent" (click)="syncAndPlay()">
+          <mat-icon style="margin-right: 6px;">sync</mat-icon>
+          Sync &amp; Play
+        </button>
+        <button mat-raised-button class="btn-outline" (click)="togglePlayPause()">
+          <mat-icon style="margin-right: 6px;">{{ playing ? 'pause' : 'play_arrow' }}</mat-icon>
+          {{ playing ? 'Pause' : 'Play' }}
+        </button>
+      </div>
+
+      <!-- Speed -->
+      <p style="font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px;">
+        Speed — {{ speed }}x
+      </p>
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span style="font-size: 12px; color: var(--muted);">0.1x</span>
+        <input type="range" min="0.1" max="1" step="0.05" [value]="speed"
+          (input)="setSpeed(+$any($event.target).value)"
+          style="flex: 1; max-width: 260px; accent-color: var(--accent); cursor: pointer;">
+        <span style="font-size: 12px; color: var(--muted);">1x</span>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <button *ngFor="let s of [0.1, 0.25, 0.5, 0.75, 1]"
+            mat-stroked-button class="btn-outline"
+            [style.color]="speed === s ? 'var(--accent)' : ''"
+            [style.borderColor]="speed === s ? 'var(--accent)' : ''"
+            style="min-width: 48px; padding: 4px 8px; font-size: 12px;"
+            (click)="setSpeed(s)">{{ s }}x
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video descriptions -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px;">
+      <div class="tr-card" style="padding: 14px 16px;">
+        <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Slot 1</div>
+        <div *ngIf="slot1">
+          <div style="font-weight: 600; margin-bottom: 4px;">{{ slot1.video.name }}</div>
+          <div style="font-size: 12px; color: var(--muted);">
+            <span class="badge badge-green" style="margin-right: 8px;">{{ slot1.video.swingType }}</span>
+            Contact: {{ slot1.video.contactPoint }}s
+            <span *ngIf="slot1.video.linkedClient !== 'none'"> · {{ slot1.video.linkedClient }}</span>
+          </div>
+        </div>
+        <div *ngIf="!slot1" style="color: var(--muted); font-size: 13px;">Empty</div>
+      </div>
+      <div class="tr-card" style="padding: 14px 16px;">
+        <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Slot 2</div>
+        <div *ngIf="slot2">
+          <div style="font-weight: 600; margin-bottom: 4px;">{{ slot2.video.name }}</div>
+          <div style="font-size: 12px; color: var(--muted);">
+            <span class="badge badge-teal" style="margin-right: 8px;">{{ slot2.video.swingType }}</span>
+            Contact: {{ slot2.video.contactPoint }}s
+            <span *ngIf="slot2.video.linkedClient !== 'none'"> · {{ slot2.video.linkedClient }}</span>
+          </div>
+        </div>
+        <div *ngIf="!slot2" style="color: var(--muted); font-size: 13px;">Empty</div>
+      </div>
+    </div>
+
+  </div>
+</div>

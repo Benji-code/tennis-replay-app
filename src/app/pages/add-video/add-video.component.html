@@ -1,0 +1,84 @@
+<div class="main-content">
+  <div class="page-title">Add <span>Video</span></div>
+
+  <div *ngIf="message" class="msg" [ngClass]="messageType === 'error' ? 'msg-error' : 'msg-success'">
+    {{ message }}
+  </div>
+
+  <div class="tr-card" [formGroup]="form">
+    <div class="tr-card-title">Video Details</div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Name *</mat-label>
+        <input matInput formControlName="name" placeholder="e.g. Alex Forehand #1">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Swing Type *</mat-label>
+        <mat-select formControlName="swingType">
+          <mat-option *ngFor="let s of swingTypes" [value]="s">{{ s }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Contact Point (seconds) *</mat-label>
+        <input matInput formControlName="contactPoint" placeholder="e.g. 4.5" type="number">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Additional Notes</mat-label>
+        <input matInput formControlName="notes" placeholder="Any notes…">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Linked Client (optional)</mat-label>
+        <mat-select formControlName="linkedClient">
+          <mat-option value="none">None</mat-option>
+          <mat-option *ngFor="let c of clients" [value]="c.name">{{ c.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row" style="margin-top: 8px;">
+      <div style="flex: 1; min-width: 200px;">
+        <p style="font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">Left Handed</p>
+        <mat-radio-group formControlName="leftHanded" style="display: flex; gap: 20px;">
+          <mat-radio-button [value]="true">Yes</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <p style="font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">One-Handed Backhand</p>
+        <mat-radio-group formControlName="oneHandBackhand" style="display: flex; gap: 20px;">
+          <mat-radio-button [value]="true">Yes</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <!-- File Upload -->
+    <div style="margin-top: 20px;">
+      <p style="font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">MP4 Video File *</p>
+      <div class="file-upload-area" [ngClass]="selectedFile ? 'has-file' : ''" (click)="triggerFileInput()">
+        <mat-icon style="font-size: 32px; width: 32px; height: 32px; margin-bottom: 8px; display: block;">
+          {{ selectedFile ? 'check_circle' : 'upload_file' }}
+        </mat-icon>
+        <div>{{ selectedFile ? selectedFile.name : 'Click to upload an MP4 video file' }}</div>
+        <div *ngIf="selectedFile" style="font-size: 11px; color: var(--muted); margin-top: 4px;">
+          {{ (selectedFile.size / 1024 / 1024).toFixed(1) }} MB
+        </div>
+      </div>
+      <input #fileInput type="file" accept="video/mp4,video/quicktime,video/*" style="display: none;" (change)="onFileSelected($event)">
+    </div>
+
+    <div style="margin-top: 24px; display: flex; align-items: center; gap: 16px;">
+      <button mat-raised-button class="btn-accent" (click)="submit()" [disabled]="uploading">
+        {{ uploading ? 'Saving…' : 'Add Video' }}
+      </button>
+      <span *ngIf="uploading" style="font-size: 12px; color: var(--muted);">Storing video in browser database…</span>
+    </div>
+  </div>
+</div>

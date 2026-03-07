@@ -1,0 +1,82 @@
+<div class="main-content">
+  <div class="page-title">Video <span>Library</span></div>
+
+  <!-- Selected slots summary -->
+  <div *ngIf="slot1Id !== null || slot2Id !== null" class="tr-card" style="padding: 14px 20px; margin-bottom: 16px;">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span style="font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;">Selected:</span>
+      <span *ngIf="slot1Id !== null" class="badge badge-green">Slot 1 set ✓</span>
+      <span *ngIf="slot2Id !== null" class="badge badge-teal">Slot 2 set ✓</span>
+      <button mat-raised-button class="btn-accent" style="margin-left: auto;" (click)="goToPlayer()">
+        Open in Player →
+      </button>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input [(ngModel)]="search" (ngModelChange)="applySearch()" placeholder="Search by name, swing type, or client…">
+  </div>
+
+  <div class="tr-card" style="padding: 0; overflow: hidden;">
+    <div *ngIf="filtered.length === 0" class="empty-state">
+      <mat-icon>videocam_off</mat-icon>
+      <p>{{ search ? 'No videos match your search.' : 'No videos yet. Add one to get started.' }}</p>
+    </div>
+
+    <table *ngIf="filtered.length > 0" class="tr-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Swing</th>
+          <th>Contact (s)</th>
+          <th>Client</th>
+          <th>File</th>
+          <th>Player Slots</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of filtered">
+          <td style="font-weight: 600;">{{ v.name }}</td>
+          <td><span class="badge badge-green">{{ v.swingType }}</span></td>
+          <td style="color: var(--accent2);">{{ v.contactPoint }}s</td>
+          <td style="color: var(--muted);">{{ v.linkedClient !== 'none' ? v.linkedClient : '—' }}</td>
+          <td style="color: var(--muted); font-size: 12px;">{{ v.fileName }}</td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <button
+                mat-icon-button class="icon-btn"
+                [style.color]="slot1Id === v.id ? 'var(--accent)' : ''"
+                [style.borderColor]="slot1Id === v.id ? 'var(--accent)' : ''"
+                (click)="slot1Id === v.id ? clearSlot(1) : selectSlot(1, v)"
+                [matTooltip]="slot1Id === v.id ? 'Remove from Slot 1' : 'Add to Slot 1'"
+                [disabled]="loadingSlot === v.id">
+                <mat-icon>looks_one</mat-icon>
+              </button>
+              <button
+                mat-icon-button class="icon-btn"
+                [style.color]="slot2Id === v.id ? 'var(--accent2)' : ''"
+                [style.borderColor]="slot2Id === v.id ? 'var(--accent2)' : ''"
+                (click)="slot2Id === v.id ? clearSlot(2) : selectSlot(2, v)"
+                [matTooltip]="slot2Id === v.id ? 'Remove from Slot 2' : 'Add to Slot 2'"
+                [disabled]="loadingSlot === v.id">
+                <mat-icon>looks_two</mat-icon>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div style="display: flex; gap: 8px;">
+              <button mat-icon-button class="icon-btn" (click)="edit(v)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="icon-btn danger" (click)="delete(v)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

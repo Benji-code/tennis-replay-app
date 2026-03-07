@@ -1,0 +1,53 @@
+<div class="main-content">
+  <div class="page-title">Client <span>List</span></div>
+
+  <div class="search-wrap">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input [(ngModel)]="search" (ngModelChange)="applySearch()" placeholder="Search by name or notes…">
+  </div>
+
+  <div class="tr-card" style="padding: 0; overflow: hidden;">
+    <div *ngIf="filtered.length === 0" class="empty-state">
+      <mat-icon>person_outline</mat-icon>
+      <p>{{ search ? 'No clients match your search.' : 'No clients yet. Add one to get started.' }}</p>
+    </div>
+
+    <table *ngIf="filtered.length > 0" class="tr-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Notes</th>
+          <th>Left Handed</th>
+          <th>1H Backhand</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of filtered">
+          <td style="font-weight: 600;">{{ c.name }}</td>
+          <td style="color: var(--muted);">{{ c.notes || '—' }}</td>
+          <td>
+            <span class="badge" [ngClass]="c.leftHanded ? 'badge-teal' : 'badge-gray'">
+              {{ c.leftHanded ? 'Yes' : 'No' }}
+            </span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="c.oneHandBackhand ? 'badge-green' : 'badge-gray'">
+              {{ c.oneHandBackhand ? 'Yes' : 'No' }}
+            </span>
+          </td>
+          <td>
+            <div style="display: flex; gap: 8px;">
+              <button mat-icon-button class="icon-btn" (click)="edit(c)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="icon-btn danger" (click)="delete(c)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
