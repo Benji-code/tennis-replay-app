@@ -1,4 +1,4 @@
-This was a tennis app I made a while ago. I recently updated it so that it's compatible with more recent angular versions. 
+This was a tennis app I made a while ago. I recently updated it so that it's compatible with more recent Angular versions. 
 
 
 
