@@ -1,10 +1,6 @@
-This was a tennis app I made a while ago. I recently updated it so that it's compatible with more recent Angular versions. 
-
-
-
 # Tennis Replay
 
-A tennis stroke analysis tool originally built in 2022. Recently updated to Angular 15 for compatibility with modern Node/TypeScript versions.
+This was a tennis app I made a while ago. I recently updated it so that it's compatible with more recent Angular versions. 
 
 ## What it does
 
