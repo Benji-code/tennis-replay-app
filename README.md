@@ -4,7 +4,7 @@ This was a tennis app I made a while ago. I recently updated it so that it's com
 
 # Tennis Replay
 
-A tennis stroke analysis tool originally built in 2022 as an HSC Software Design & Development major project. Recently updated to Angular 15 for compatibility with modern Node/TypeScript versions.
+A tennis stroke analysis tool originally built in 2022. Recently updated to Angular 15 for compatibility with modern Node/TypeScript versions.
 
 ## What it does
 
