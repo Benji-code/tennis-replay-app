@@ -12,7 +12,7 @@ Tennis Replay lets you manage a database of clients and their tennis stroke vide
 - **Client list** - live search, alphabetically sorted
 - **Add videos** - upload MP4/MOV files, tag with swing type (Forehand, Backhand, First Serve, Second Serve, Volley, Smash), set a contact point in seconds, and link to a client
 - **Video list** - live search by name, swing type or client, with buttons to load videos into the player
-- **Video player** - side-by-side comparison of two videos, sync both to their contact points and play simultaneously, adjustable playback speed (0.1x – 1x)
+- **Video player** - side-by-side comparison of two videos, sync both to their contact points and play simultaneously, adjustable playback speed (0.1x - 1x)
 - **Edit/delete** clients and videos
 - **Mobile friendly** - designed primarily for use in mobile Safari
 
